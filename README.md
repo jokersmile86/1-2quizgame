@@ -221,3 +221,8 @@ PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git commit -m "Docs: 
  1 file changed, 10 insertions(+), 9 deletions(-)
 PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git rev-list --count HEAD
 10
+
+## 📌 8. Git Clone 및 Pull 실습
+- GitHub 원격 저장소를 별도 폴더에 Clone하여 프로젝트 복제 확인
+- Clone한 저장소에서 main 브랜치 및 프로젝트 파일 확인
+- 원격 저장소의 변경 사항을 Pull하여 로컬 저장소에 반영하는 실습 진행
