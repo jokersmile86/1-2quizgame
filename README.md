@@ -74,26 +74,26 @@ quiz-game/
 - [x] GitHub 저장소 생성 및 로컬 연결
 - [x] .gitignore, README.md 작성
 - [x] 초기 설정 후 첫 commit / push 수행
-- [ ] 메뉴 출력 및 기능 선택 구현
-- [ ] 잘못된 입력 / 예외 처리 구현
-- [ ] Quiz 클래스 정의 (question, choices, answer)
-- [ ] 기본 퀴즈 데이터 5개 이상 작성
-- [ ] 퀴즈 풀기 기능 (브랜치 생성 후 작업 → 병합)
-- [ ] 퀴즈 추가 기능 및 파일 저장
-- [ ] 퀴즈 목록 확인 기능
-- [ ] 점수 확인 및 최고 점수 갱신·저장
-- [ ] state.json 영속성 검증 (재실행 후 데이터 유지)
-- [ ] 파일 없음 / 손상 시 복구 처리
-- [ ] 10개 이상 의미 있는 커밋
-- [ ] 브랜치 생성·병합 1회 이상
+- [x] 메뉴 출력 및 기능 선택 구현
+- [x] 잘못된 입력 / 예외 처리 구현
+- [x] Quiz 클래스 정의 (question, choices, answer)
+- [x] 기본 퀴즈 데이터 5개 이상 작성 (총 10개 구성 완료)
+- [ ] 퀴즈 풀기 기능 (브랜치 생성 후 작업 → 병합) *(브랜치 작업 중, 병합 대기)*
+- [x] 퀴즈 추가 기능 및 파일 저장
+- [x] 퀴즈 목록 확인 기능
+- [x] 점수 확인 및 최고 점수 갱신·저장
+- [x] state.json 영속성 검증 (재실행 후 데이터 유지)
+- [x] 파일 없음 / 손상 시 복구 처리
+- [ ] 10개 이상 의미 있는 커밋 *(현재 3개 완료, 추가 진행 예정)*
+- [ ] 브랜치 생성·병합 1회 이상 *(브랜치 생성 완료, 병합 대기)*
 - [ ] clone, pull 각 1회 이상
 - [x] README.md 필수 항목 모두 작성
 
 ---
 
-## 📜 7. 초기 설정 및 Git 커밋 로그 (수행 내용)
+## 📜 7. 단계별 수행 내용 및 실행 로그
 
-### ① 프로젝트 폴더 초기화 및 설정 파일 생성
+### ① 프로젝트 폴더 초기화 및 GitHub 원격 저장소 연결
 ```powershell
 PS C:\Users\jockersmile1176\Documents\Workspace> python --version
 Python 3.12.8
@@ -101,10 +101,7 @@ PS C:\Users\jockersmile1176\Documents\Workspace> git --version
 git version 2.56.0.windows.4
 PS C:\Users\jockersmile1176\Documents\Workspace> mkdir quiz-game
 PS C:\Users\jockersmile1176\Documents\Workspace> cd quiz-game
-```
 
-### ② Git 초기화 및 원격 저장소 연결
-```powershell
 PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git init
 PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git remote add origin [https://github.com/jokersmile86/1-2quizgame.git](https://github.com/jokersmile86/1-2quizgame.git) 
 PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git remote -v
@@ -112,7 +109,7 @@ origin  [https://github.com/jokersmile86/1-2quizgame.git](https://github.com/jok
 origin  [https://github.com/jokersmile86/1-2quizgame.git](https://github.com/jokersmile86/1-2quizgame.git) (push)
 ```
 
-### ③ 설정 파일 생성 및 첫 커밋/푸시 수행
+### ② 설정 파일 생성 및 첫 커밋/푸시 수행 (커밋 #1)
 ```powershell
 PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> New-Item .gitignore -ItemType File
 PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> New-Item README.md -ItemType File
@@ -124,4 +121,93 @@ PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git commit -m "Chore:
 PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git push -u origin main
 To [https://github.com/jokersmile86/1-2quizgame.git](https://github.com/jokersmile86/1-2quizgame.git)
  * [new branch]      main -> main
+branch 'main' set up to track 'origin/main'.
+```
+
+### ③ 핵심 로직(`main.py`) 구현 및 퀴즈 풀이/예외 처리 검증 (커밋 #2)
+- `state.json` 미존재 시 기본 데이터(5문제) 자동 생성 검증
+- 퀴즈 5문제 풀이 후 점수 산출 및 최고 점수 갱신(`3점`) 확인
+- 잘못된 입력(`ㅁ`, `a`, `9`)에 대한 예외 처리 안내 메시지 동작 검증
+
+```powershell
+PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> python main.py
+📂 state.json 파일이 없어 기본 데이터로 생성합니다.
+========================================
+        🎯 나만의 퀴즈 게임 🎯        
+📂 저장된 데이터 로드 완료 (퀴즈 5개, 최고점수: 0점)
+========================================
+
+1. 퀴즈 풀기
+2. 퀴즈 추가
+3. 퀴즈 목록
+4. 점수 확인
+5. 종료
+========================================
+선택: 1
+
+📝 퀴즈를 시작합니다! (총 5문제)
+... (중략) ...
+========================================
+🏆 결과: 총 5문제 중 3문제 정답!
+🎉 새로운 최고 점수입니다!
+========================================
+
+선택: 4
+🏆 최고 점수: 3점
+
+선택: ㅁ
+⚠️ 숫자 형태만 입력 가능합니다.
+선택: a
+⚠️ 숫자 형태만 입력 가능합니다.
+선택: 9
+⚠️ 잘못된 입력입니다. 1~5 사이의 숫자를 입력하세요.
+선택: 5
+👋 프로그램을 종료합니다. 이용해 주셔서 감사합니다!
+
+PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git add main.py
+PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git commit -m "Feat: Quiz 및 QuizGame 클래스, 예외 처리, 파일 영속성 구현"
+[main 9e29fb9] Feat: Quiz 및 QuizGame 클래스, 예외 처리, 파일 영속성 구현
+ 1 file changed, 234 insertions(+)
+ create mode 100644 main.py
+```
+
+### ④ 작업 브랜치 생성 및 퀴즈 5개 추가·목록 조회 검증 (커밋 #3)
+- `feature/quiz-features` 브랜치 생성 및 전환
+- 재실행 시 기존 `state.json` 데이터(5문제, 최고점수 3점) 유지 확인
+- 퀴즈 5개를 추가 등록하여 총 10문제 목록 조회 및 저장 검증
+- `.gitignore` 예외 처리를 위해 `git add -f state.json`으로 데이터 파일 추적 반영
+
+```powershell
+PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git checkout -b feature/quiz-features
+Switched to a new branch 'feature/quiz-features'
+PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> python main.py
+========================================
+        🎯 나만의 퀴즈 게임 🎯        
+📂 저장된 데이터 로드 완료 (퀴즈 5개, 최고점수: 3점)
+========================================
+... (퀴즈 5개 추가 진행) ...
+선택: 3
+
+📋 등록된 퀴즈 목록 (총 10개)
+----------------------------------------
+[1] Python에서 리스트(List)의 특징으로 알맞은 것은?
+[2] 다음 중 파이썬의 기본 데이터 타입이 아닌 것은?
+[3] 깃(Git)에서 로컬 저장소의 변경 이력을 원격 저장소에 업로드하는 명령어는?
+[4] 다음 중 파일 권한 '644'에서 소유자(Owner)가 가진 권한으로 올바른 것은?
+[5] Docker 컨테이너를 실행할 때 포트를 매핑하기 위해 사용하는 옵션은?
+[6] 파이썬에서 함수의 반환값을 지정할 때 사용하는 키워드는?
+[7] Git에서 새로운 브랜치를 생성하고 동시에 해당 브랜치로 이동하는 명령어는?
+[8] 실행 중인 모든 Docker 컨테이너의 목록을 확인할 수 있는 명령어는?
+[9] 리눅스에서 파일 소유자에게는 읽기·쓰기·실행, 그룹과 기타 사용자에게는 읽기·실행 권한을 부여하는 숫자 표현은?
+[10] 파이썬에서 예외 처리를 위해 사용하는 블록의 키워드가 아닌 것은?
+----------------------------------------
+선택: 5
+👋 프로그램을 종료합니다. 이용해 주셔서 감사합니다!
+
+PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git add -f state.json
+PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git add README.md
+PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git commit -m "Feat: 퀴즈 데이터(state.json) 및 README 문서 업데이트"
+[feature/quiz-features e73b1f3] Feat: 퀴즈 데이터(state.json) 및 README 문서 업데이트
+ 2 files changed, 232 insertions(+)
+ create mode 100644 state.json
 ```
