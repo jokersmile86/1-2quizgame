@@ -213,3 +213,11 @@ PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git commit -m "Feat: 
  2 files changed, 232 insertions(+)
  create mode 100644 state.json
 ```
+
+### 10번째 커밋 로그 (README 참고용)
+PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git add README.md
+PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git commit -m "Docs: README.md 최종 수정 및 문서 정돈 완료"
+[feature/quiz-features a83f2c5] Docs: README.md 최종 수정 및 문서 정돈 완료
+ 1 file changed, 10 insertions(+), 9 deletions(-)
+PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git rev-list --count HEAD
+10
