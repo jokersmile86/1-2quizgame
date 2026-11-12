@@ -260,7 +260,6 @@ class QuizGame:
         best = self.data.get("best_score", 0)
         print(f"\n🏆 최고 점수: {best}점")
 
-
 if __name__ == "__main__":
     game = QuizGame()
     game.run()
