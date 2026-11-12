@@ -38,6 +38,7 @@ python main.py
 4. **점수 확인:** 역대 최고 점수 및 정답 개수 확인
 5. **안전한 예외/오류 처리:** 잘못된 숫자 입력, 빈 값, 문자 입력, 파일 손상 시 안내 및 안전 종료(`Ctrl+C` 대응) 지원
 - **Tip:** `state.json` 파일이 자동 생성되므로 언제든 이어서 학습할 수 있습니다.
+
 ---
 
 ## 📂 5. 파일 구조 및 데이터 파일 설명
@@ -49,8 +50,8 @@ quiz-game/
 ├── README.md          # 프로젝트 설명서 및 실행 기록
 ├── state.json         # 퀴즈 데이터 및 최고 점수 저장 파일 (자동 생성/관리)
 └── main.py            # 프로그램 실행 및 게임 로직 진입점
- - **Tip:** UTF-8 인코딩을 사용하여 한글이 깨지지 않고 안전하게 저장됩니다.
 ```
+- **Tip:** UTF-8 인코딩을 사용하여 한글이 깨지지 않고 안전하게 저장됩니다.
 
 ### 데이터 파일 (`state.json`) 설명
 - **경로:** 프로젝트 루트 (`./state.json`)
@@ -79,15 +80,15 @@ quiz-game/
 - [x] 잘못된 입력 / 예외 처리 구현
 - [x] Quiz 클래스 정의 (question, choices, answer)
 - [x] 기본 퀴즈 데이터 5개 이상 작성 (총 10개 구성 완료)
-- [ ] 퀴즈 풀기 기능 (브랜치 생성 후 작업 → 병합) *(브랜치 작업 중, 병합 대기)*
+- [x] 퀴즈 풀기 기능 (브랜치 생성 후 작업 → 병합)
 - [x] 퀴즈 추가 기능 및 파일 저장
 - [x] 퀴즈 목록 확인 기능
 - [x] 점수 확인 및 최고 점수 갱신·저장
 - [x] state.json 영속성 검증 (재실행 후 데이터 유지)
 - [x] 파일 없음 / 손상 시 복구 처리
-- [ ] 10개 이상 의미 있는 커밋 *(현재 3개 완료, 추가 진행 예정)*
-- [ ] 브랜치 생성·병합 1회 이상 *(브랜치 생성 완료, 병합 대기)*
-- [ ] clone, pull 각 1회 이상
+- [x] 10개 이상 의미 있는 커밋 완료
+- [x] 브랜치 생성·병합 1회 이상 완료
+- [x] clone, pull 각 1회 이상 완료
 - [x] README.md 필수 항목 모두 작성
 
 ---
@@ -104,10 +105,10 @@ PS C:\Users\jockersmile1176\Documents\Workspace> mkdir quiz-game
 PS C:\Users\jockersmile1176\Documents\Workspace> cd quiz-game
 
 PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git init
-PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git remote add origin [https://github.com/jokersmile86/1-2quizgame.git](https://github.com/jokersmile86/1-2quizgame.git) 
+PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git remote add origin https://github.com/jokersmile86/1-2quizgame.git 
 PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git remote -v
-origin  [https://github.com/jokersmile86/1-2quizgame.git](https://github.com/jokersmile86/1-2quizgame.git) (fetch)
-origin  [https://github.com/jokersmile86/1-2quizgame.git](https://github.com/jokersmile86/1-2quizgame.git) (push)
+origin  https://github.com/jokersmile86/1-2quizgame.git (fetch)
+origin  https://github.com/jokersmile86/1-2quizgame.git (push)
 ```
 
 ### ② 설정 파일 생성 및 첫 커밋/푸시 수행 (커밋 #1)
@@ -120,7 +121,7 @@ PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git commit -m "Chore:
  2 files changed, 10 insertions(+)
 
 PS C:\Users\jockersmile1176\Documents\Workspace\quiz-game> git push -u origin main
-To [https://github.com/jokersmile86/1-2quizgame.git](https://github.com/jokersmile86/1-2quizgame.git)
+To https://github.com/jokersmile86/1-2quizgame.git
  * [new branch]      main -> main
 branch 'main' set up to track 'origin/main'.
 ```
