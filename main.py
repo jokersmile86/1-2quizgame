@@ -1,14 +1,31 @@
+"""
+=========================================================
+프로젝트 이름: 나만의 파이썬 퀴즈 게임 (Python Console Quiz Game)
+설명: 객체 지향(OOP) 구조와 JSON 파일 영속성, 그리고 강력한 예외 처리를
+      적용한 터미널 기반 퀴즈 게임 프로그램입니다.
+=========================================================
+"""
+
 import json
 import os
 import sys
 
 class Quiz:
+    """개별 퀴즈 문항을 표현하는 클래스"""
+    
     def __init__(self, question, choices, answer):
-        self.question = question       # 문제
-        self.choices = choices         # 선택지 4개 리스트
-        self.answer = answer           # 정답 번호 (1~4)
+        """
+        Quiz 객체 초기화 메서드
+        :param question: 문제 내용 (str)
+        :param choices: 4개의 선택지 리스트 (list)
+        :param answer: 정답 번호 1~4 (int)
+        """
+        self.question = question
+        self.choices = choices
+        self.answer = answer
 
     def display(self):
+        """퀴즈 문제와 4개의 선택지를 보기 좋게 콘솔에 출력하는 메서드"""
         print(f"\n----------------------------------------")
         print(f"{self.question}")
         for idx, choice in enumerate(self.choices, 1):
@@ -16,10 +33,17 @@ class Quiz:
         print(f"----------------------------------------")
 
     def check_answer(self, user_answer):
+        """
+        사용자가 입력한 답이 정답과 일치하는지 확인하는 메서드
+        :param user_answer: 사용자가 입력한 정답 번호 (int)
+        :return: 정답 여부 (bool)
+        """
         return self.answer == user_answer
 
 
 class QuizGame:
+    """게임 전체의 흐름, 메뉴, 데이터 입출력을 관리하는 메인 컨트롤러 클래스"""
+    
     def __init__(self):
         self.filename = "state.json"
         self.data = self.load_data()
@@ -27,7 +51,10 @@ class QuizGame:
         self.load_quizzes_to_objects()
 
     def load_data(self):
-        """state.json 파일 로드, 없거나 손상 시 기본 데이터 반환 및 복구"""
+        """
+        state.json 파일에서 퀴즈 데이터와 최고 점수를 불러오는 메서드
+        - 파일이 없거나 손상된 경우 기본 데이터를 생성 및 복구합니다.
+        """
         default_data = {
             "quizzes": [
                 {
@@ -79,9 +106,8 @@ class QuizGame:
             return default_data
 
     def save_data(self, data=None):
-        """데이터를 state.json에 저장"""
+        """현재 퀴즈 목록과 최고 점수를 state.json 파일에 저장하는 메서드"""
         if data is None:
-            # Quiz 객체 리스트를 다시 딕셔너리 형태로 변환하여 저장
             quizzes_list = [
                 {
                     "question": q.question,
@@ -102,7 +128,7 @@ class QuizGame:
             print(f"⚠️ 데이터 저장 실패: {e}")
 
     def load_quizzes_to_objects(self):
-        """딕셔너리 형태의 퀴즈 데이터를 Quiz 객체로 변환"""
+        """불러온 딕셔너리 데이터를 Quiz 인스턴스 리스트로 변환하는 메서드"""
         self.quizzes = []
         for q_dict in self.data.get("quizzes", []):
             self.quizzes.append(
@@ -110,7 +136,9 @@ class QuizGame:
             )
 
     def get_validated_input(self, prompt, min_val, max_val):
-        """공백 제거, 숫자 변환 실패, 범위 초과, 빈 입력 및 안전 종료 처리"""
+        """
+        공백 제거, 문자 입력(ValueError), 범위 초과, 빈 입력 및 안전 종료(Ctrl+C)를 처리하는 공통 입력 메서드
+        """
         while True:
             try:
                 user_input = input(prompt).strip()
@@ -131,6 +159,7 @@ class QuizGame:
                 sys.exit(0)
 
     def run(self):
+        """콘솔 게임의 메인 실행 루프를 담당하는 메서드"""
         print("========================================")
         print("        🎯 나만의 퀴즈 게임 🎯        ")
         print(f"📂 저장된 데이터 로드 완료 (퀴즈 {len(self.quizzes)}개, 최고점수: {self.data.get('best_score', 0)}점)")
@@ -159,6 +188,7 @@ class QuizGame:
                 break
 
     def play_quiz(self):
+        """등록된 모든 퀴즈를 순서대로 출제하고 점수를 계산하는 메서드"""
         if not self.quizzes:
             print("⚠️ 등록된 퀴즈가 없습니다. 먼저 퀴즈를 추가해주세요!")
             return
@@ -188,6 +218,7 @@ class QuizGame:
         print("========================================")
 
     def add_quiz(self):
+        """새로운 퀴즈 문항을 입력받아 객체로 추가하고 파일에 저장하는 메서드"""
         print("\n📌 새로운 퀴즈를 추가합니다.")
         try:
             question = input("문제를 입력하세요: ").strip()
@@ -205,7 +236,6 @@ class QuizGame:
 
             answer = self.get_validated_input("정답 번호 (1-4): ", 1, 4)
 
-            # 새 퀴즈 추가
             new_quiz = Quiz(question, choices, answer)
             self.quizzes.append(new_quiz)
             self.save_data()
@@ -214,6 +244,7 @@ class QuizGame:
             print("\n⚠️ 입력을 취소합니다.")
 
     def show_quizzes(self):
+        """현재 등록된 모든 퀴즈의 목록을 출력하는 메서드"""
         if not self.quizzes:
             print("⚠️ 등록된 퀴즈가 없습니다.")
             return
@@ -225,6 +256,7 @@ class QuizGame:
         print("-" * 40)
 
     def show_score(self):
+        """현재 저장된 최고 점수를 확인하는 메서드"""
         best = self.data.get("best_score", 0)
         print(f"\n🏆 최고 점수: {best}점")
 
