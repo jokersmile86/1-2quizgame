@@ -19,7 +19,7 @@ class Quiz:
         :param question: 문제 내용 (str)
         :param choices: 4개의 선택지 리스트 (list)
         :param answer: 정답 번호 1~4 (int)
-        """
+        """ 
         self.question = question
         self.choices = choices
         self.answer = answer
